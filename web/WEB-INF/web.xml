@@ -3,4 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!--
+        web项目启动时，会自动加载web.xml，因此需要在web.xml中加载 监听器(ioc容器初始化)
+    -->
+    <context-param>
+        <!--监听器类的父类ContextLoader中有一个属性contextConfigLocation，该属性值保存着 容器配置文件applicationContext./xml的位置-->
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <!--
+            配置spring-web.jar 提供的监听器，此 监听器 可以在服务器启动时 初始化ioc容器
+                初始化容器(applicationContext.xml)
+                    1.告诉监听器此容器的位置: content-param
+                    2.默认约定的位置: WEB-INF，文件名必须是 applicationContext.xml
+        -->
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+
+        <!--
+            06-Jan-2019 15:06:12.156 严重 [RMI TCP Connection(2)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal One or more listeners failed to start. Full details will be found in the appropriate container log file
+            06-Jan-2019 15:06:12.160 严重 [RMI TCP Connection(2)-127.0.0.1] org.apache.catalina.core.StandardContext.startInternal Context [/webFirst] startup failed due to previous errors
+        -->
+    </listener>
 </web-app>
