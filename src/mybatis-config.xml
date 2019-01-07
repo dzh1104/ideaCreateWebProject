@@ -5,8 +5,8 @@
 <configuration>
 
     <!--数据库信息-->
-    <!--加载映射文件 studentMapper.xml-->
+    <!--加载映射文件 StudentMapper.xml-->
     <mappers>
-        <mapper resource="com/netease/mapper/studentMapper.xml"></mapper>
+        <mapper resource="com/netease/mapper/StudentMapper.xml"></mapper>
     </mappers>
 </configuration>

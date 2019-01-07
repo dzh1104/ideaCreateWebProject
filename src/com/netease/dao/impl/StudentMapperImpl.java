@@ -15,6 +15,9 @@ public void addStudent(Student student) {
     StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
     
     mapper.addStudent(student);
+    
+    // 在mybatis中由于事务提交类型是 JDBC，所以要手动提交；而在此处不需要手动提交，因为spring会自动提交
+    sqlSession.commit();
 }
 
 }

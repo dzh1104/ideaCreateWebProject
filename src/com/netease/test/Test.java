@@ -12,9 +12,9 @@ public static void main(String[] args) {
     ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
     IStudentService studentService = (IStudentService)context.getBean("studentService");
     Student student = new Student();
-    student.setStuNo(97);
-    student.setStuName("dgg");
-    student.setStuAge(27);
+    student.setStuNo(36);
+    student.setStuName("dd");
+    student.setStuAge(6);
     studentService.addStudent(student);
 }
     

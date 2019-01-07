@@ -33,9 +33,29 @@
     </bean>
 
     <!--配置dao-->
-    <bean id="studentMapper" class="com.netease.dao.impl.StudentMapperImpl">
+    <!--方法a 生成mapper对象-->
+    <!--<bean id="studentMapper" class="com.netease.dao.impl.StudentMapperImpl">-->
         <!--重要：将spring配置的sqlSessionFactory 交给mapper(dao层)-->
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
+    <!--</bean>-->
+
+    <!--方法b 生成mapper对象-->
+    <!--<bean id="studentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+        <!--<property name="mapperInterface" value="com.netease.mapper.StudentMapper"></property>-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
+    <!--</bean>-->
+
+    <!--方法c 批量产生多个mapper id改为mappers-->
+    <!--
+        批量产生mapper堆在spring ioc中的 id值默认就是 首字母小写接口名 (接口名 == id)
+        因此下面的 ref="studentMapper"是可以的
+    -->
+    <bean id="mappers" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注意：不使用下面这个咯-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!--指定批量产生 哪个包中的 mapper对象-->
+        <property name="basePackage" value="com.netease.mapper"></property>
     </bean>
 
     <!--配置service-->
@@ -67,5 +87,12 @@
                 spring产生 动态mapper对象有三种方法：
                     a.DAO层实现类 继承 SqlSessionDaoSupport类
                         SqlSessionDaoSupport类 提供了一个属性 SqlSession对象
+
+                    b.就是不写 方法a中的 实现类：框架已提供，直接使用mybatis提供的 Mapper实现类：org.mybatis.spring.mapper
+                    .MapperFactoryBean不需要手写Dao层的实现类来继承SqlSessionDaoSupport类取得SqlSession
+                    对象，即不需要写该工程中的StudentMapperImpl.java
+                    缺点：每个mapper都需要配置一次(配置一个bean)
+
+                    c.批量配置实现类
     -->
 </beans>
