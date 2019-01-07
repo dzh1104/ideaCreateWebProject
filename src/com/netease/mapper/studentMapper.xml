@@ -2,10 +2,11 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--mapper接口的全类名-->
 <mapper namespace="com.netease.mapper.StudentMapper">
-    <select id="queryStudentByStuno" resultType="com.netease.entity.Student" parameterType="int">
-      select * from student where stuno = #{stuNo}
-    </select>
 
+    <!--方法名作为id值-->
+    <insert id="addStudent" parameterType="com.netease.entity.Student">
+        insert into student(stuno, stuname, stuage) values(#{stuNo}, #{stuName}, #{stuAge})
+    </insert>
 </mapper>
