@@ -19,7 +19,9 @@
         <!--加载mybatis配置文件-->
         <!--<property name="configLocation" value="classpath:mybatis-config.xml"></property>-->
         <!--代替mybatis 加载mapper.xml文件 * 加载所有-->
-        <property name="mapperLocations" value="com/netease/mapper/*.xml"></property>
+        <!--注意：classpath: 一定要加，否则会找不到该文件-->
+        <!--<property name="mapperLocations" value="com/netease/mapper/*.xml"></property>-->
+        <property name="mapperLocations" value="classpath:com/netease/mapper/*.xml"></property>
     </bean>
 
     <!--spring引入外部配置文件和mybatis引入外部配置文件的不同: 见neteaseMybatis-->
@@ -86,6 +88,9 @@
             7.使用spring-mybatis整合产物开发程序
                 目标：通过spring产生mybatis最终操作需要的 动态mapper对象(studentMapper对象)
                 spring产生 动态mapper对象有三种方法：
+
+                    博客学习网址：https://www.cnblogs.com/ClassNotFoundException/p/6425558.html
+
                     a.DAO层实现类 继承 SqlSessionDaoSupport类
                         SqlSessionDaoSupport类 提供了一个属性 SqlSession对象
 
